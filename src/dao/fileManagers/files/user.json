@@ -1,0 +1,41 @@
+[
+	{
+		"first_name": "John",
+		"last_name": "Doe",
+		"email": "john@email.com",
+		"dni": 123456,
+		"birthDate": "1989/11/01",
+		"gender": "M",
+		"courses": [
+			"programación backend",
+			"frontend"
+		],
+		"id": 1
+	},
+	{
+		"first_name": "John",
+		"last_name": "Doe",
+		"email": "john@email.com",
+		"dni": 123456,
+		"birthDate": "1989/11/01",
+		"gender": "M",
+		"courses": [
+			"programación backend",
+			"frontend"
+		],
+		"id": 1
+	},
+	{
+		"first_name": "Jane",
+		"last_name": "Doe",
+		"email": "janen@email.com",
+		"dni": 123456,
+		"birthDate": "1989/05/01",
+		"gender": "F",
+		"courses": [
+			"programación backend",
+			"frontend"
+		],
+		"id": 1
+	}
+]
