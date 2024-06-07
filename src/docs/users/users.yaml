@@ -1,0 +1,157 @@
+paths:
+  /api/users/:
+    get:
+      summary: returns all available users
+      tags: [Users]
+      responses:
+        "200":
+          description: returns a list of all available users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+    post:
+      summary: creates a new user in persistance
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/createUser'
+      responses:
+        "200":
+          description: the user was created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/User'
+        "400":
+          description: bad request
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  error:
+                    type: string
+                example:
+                  status: "error"
+                  error: "Incomplete data"                 
+  /{uid}/courses/{cid}:
+    post:
+      summary: Allows for users to be added to a course
+      tags: [Users]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: uid
+          in: path
+          description: the user's id
+          example: '66441dafab6cffa1e25c5266'
+          required: true
+          schema:
+            type: string
+        - name: cid
+          in: path
+          description: the courses's id
+          example: '66441dafab6cffa1e25c5266'
+          required: true
+          schema:
+            type: string 
+      responses:
+        "200":
+          description: 'user was added to course successfully'           
+components:
+  requestBodies:
+    createUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Email único del usuario
+        dni:
+          type: string
+          description: Número de identificación
+        birthDate:
+          type: Date
+          description: Fecha de nacimiento
+        gender:
+          type: string
+          description: Género (M/F)
+        role:
+          type: string
+          description: Rol del usuario (student/teacher)
+        courses:
+          type: Array
+          description: cursos asignados al usuario
+        password:
+          type: string
+          description: Contraseña del usuario sin hashear      
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: mongoose generated id
+        first_name:
+          type: string
+          description: the user's first name
+        last_name:
+          type: string
+          description: the user's last name
+        email:
+          type: string
+          description: the user's email                        
+        dni:
+          type: number
+          description: the user's unique identifier                      
+        gender:
+          type: string
+          description: the user's gender
+        role:
+          type: string
+          description: the user's role                        
+        password:
+          type: string
+          description: the user's hashed password                        
+        courses:
+            type: array
+            items: 
+              type: string
+      example:
+        _id: "66624cbaf0167a541b581199"
+        first_name: "John"
+        last_name: "Doe"
+        email: "teacher@email.com"
+        dni: 123456789
+        gender: "M"
+        role: "teacher"
+        password: "1234"
+        courses: []
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: our_coookie

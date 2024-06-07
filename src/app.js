@@ -12,6 +12,8 @@ const session = require('express-session');
 const { port, mongo } = require('./config/config');
 const cookieParser = require('cookie-parser');
 const addLogger = require('./middlewares/logger.middleware');
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUIExpress = require('swagger-ui-express')
 
 
 //*---database connection--//
@@ -36,12 +38,27 @@ initializePassport()
 app.use(passport.initialize())
 app.use(addLogger)
 
+//** SWAGGER CONFIG */
+const swaggerConfig = {
+    definition:{
+        openapi: '3.0.1',
+        info: {
+            title: 'Last integration class app documentation',
+            description: 'this is ment tot describe how to use our api'
+        }
+    },
+    apis: [`${__dirname}/docs/**/*.yaml`]
+}
+const specs = swaggerJSDoc(swaggerConfig)
+
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use('/api/users', usersRouter)
 app.use('/api/courses', coursesRouter)
 app.use('/api/sessions', sessionsRouter)
 app.use('/', viewsRouter)
+app.use('/api-docs', swaggerUIExpress.serve, swaggerUIExpress.setup(specs))
 
 
 //endpoins

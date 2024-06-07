@@ -1,0 +1,32 @@
+paths:
+  /api/sessions/login:
+    post:
+      summary: allows the user to log in into the system
+      tags: [Sessions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/loginBody'
+      responses:
+        "200":
+          description: 'user was logged in successfully'
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: our_coookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjI1YTE5OGQzZjRiZTQyNGUzYjdlNCIsImZpcnN0X25hbWUiOiJuZXciLCJsYXN0X25hbWUiOiJEb2UiLCJyb2xlIjoic3R1ZGVudCIsImVtYWlsIjoiYW5nZWxwYWJsb2N1ZXZhczE5ODlAZ21haWwuY29tIiwiaWF0IjoxNzE3NzIxNjMzLCJleHAiOjE3MTc3MjUyMzN9.G4cx6bJEZBzg0tZEQTw6ArAlengj8pB9-QbVSo01dmc; Max-Age=3600; Path=/; Expires=Fri, 07 Jun 2024 01:53:53 GMT
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  requestBodies:
+    loginBody:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string  
