@@ -10,6 +10,7 @@ class UsersController {
     static async create(req, res){
 
         if(!req.body.first_name){
+            req.logger.warn('Incomplete data')
             return res.status(400).send({status:'error', error:'Incomplete data'})
         }
     

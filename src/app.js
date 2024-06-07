@@ -11,6 +11,7 @@ const { sessionsRouter } = require('./routes/sessions.router');
 const session = require('express-session');
 const { port, mongo } = require('./config/config');
 const cookieParser = require('cookie-parser');
+const addLogger = require('./middlewares/logger.middleware');
 
 
 //*---database connection--//
@@ -33,6 +34,7 @@ app.set('view engine','handlebars')
 app.use(cookieParser())
 initializePassport()
 app.use(passport.initialize())
+app.use(addLogger)
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))

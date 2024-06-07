@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config()
 
 module.exports = {
+    ENV: process.env.NODE_ENV,
     port: process.env.PORT,
     mongo: {
         URL: process.env.MONGO_URL   
